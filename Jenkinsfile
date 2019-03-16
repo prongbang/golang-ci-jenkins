@@ -14,7 +14,7 @@ node {
             echo 'Pulling Dependencies'
     
             sh 'go version'
-            // sh 'go get -u golang.org/x/lint/golint'
+            sh 'go get -u golang.org/x/lint/golint'
             sh 'export GO111MODULE=on'
         }
         
