@@ -38,5 +38,15 @@ node {
                 reportName: "Test Coverage Report"
             ])
         }
+
+        stage('Build'){
+            echo 'Building'
+
+        }
+
+        stage('Deploy'){
+            echo 'Deploying'
+
+        }
     }
 }
