@@ -1,27 +1,27 @@
 node {
-    def root = tool name: 'Go1.8', type: 'go'
-    ws("${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}/src/github.com/grugrut/golang-ci-jenkins-pipeline") {
-        withEnv(["GOROOT=${root}", "GOPATH=${JENKINS_HOME}/jobs/${JOB_NAME}/builds/${BUILD_ID}/", "PATH+GO=${root}/bin"]) {
-            env.PATH="${GOPATH}/bin:$PATH"
-            
-            stage 'Checkout'
+    
+    // Install the desired Go version
+    def root = tool name: '1.12.1', type: 'go'
+ 
+    // Export environment variables pointing to the directory where Go was installed
+    withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
+        stage('Checkout'){
+            echo 'Checking out SCM'
+            git 'https://github.com/prongbang/go-testcov'
+        }
         
-            git url: 'https://github.com/grugrut/golang-ci-jenkins-pipeline.git'
-        
-            stage 'preTest'
+        stage('Pre Test'){
+            echo 'Pulling Dependencies'
+    
             sh 'go version'
-            sh 'go get -u github.com/golang/dep/...'
-            sh 'dep init'
+            // sh 'go get -u golang.org/x/lint/golint'
+            sh 'export GO111MODULE=on'
+        }
+        
+        stage('Test'){
+            echo 'Testing'
             
-            stage 'Test'
-            sh 'go vet'
-            sh 'go test -cover'
-            
-            stage 'Build'
-            sh 'go build .'
-            
-            stage 'Deploy'
-            // Do nothing.
+            sh 'pwd'
         }
     }
 }
