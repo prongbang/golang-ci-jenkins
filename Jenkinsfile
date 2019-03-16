@@ -33,7 +33,7 @@ node {
                 allowMissing: false,
                 alwaysLinkToLastBuild: false,
                 keepAll: true,
-                reportDir: 'coverage',
+                reportDir: './',
                 reportFiles: 'coverage.html',
                 reportName: "Test Coverage Report"
             ])
