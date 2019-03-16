@@ -7,7 +7,7 @@ node {
     withEnv(["GOROOT=${root}", "PATH+GO=${root}/bin"]) {
         stage('Checkout'){
             echo 'Checking out SCM'
-            git 'https://github.com/prongbang/go-testcov'
+            git 'https://github.com/prongbang/golang-ci-jenkins'
         }
         
         stage('Pre Test'){
