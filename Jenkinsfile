@@ -18,10 +18,25 @@ node {
             sh 'export GO111MODULE=on'
         }
         
-        stage('Test'){
+        stage('Unit Test'){
             echo 'Testing'
             
-            sh 'pwd'
+            sh 'go test -cover -v ./...'
+        }
+
+        stage('Coverage Test'){
+            echo 'Testing'
+            
+            sh 'go test -cover ./... -coverprofile=cover.out'
+            sh 'go tool cover -html=cover.out -o coverage.html'
+            publishHTML (target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: false,
+                keepAll: true,
+                reportDir: 'coverage',
+                reportFiles: 'coverage.html',
+                reportName: "Test Coverage Report"
+            ])
         }
     }
 }
